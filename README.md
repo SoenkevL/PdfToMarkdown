@@ -50,8 +50,9 @@ Ollama is required to run the LLM that enhances the PDF conversion process. Foll
 
 3. Pull the Qwen2.5 model (requires at least 16GB VRAM):
    ```bash
-   ollama pull qwen2.5:14b
+   ollama run qwen2.5:14b
    ```
+   The first time this is run, the model needs to be pulled which may take some time
 
    Note: If you have less VRAM, you can use a smaller model by modifying the `ollama_model` parameter in the `PdfToMarkdown.py` file. For example:
    ```python
@@ -89,7 +90,7 @@ python PdfToMarkdown.py --pdf path/to/your/document.pdf --output path/to/output/
 
 ### Example with Sample PDF
 
-To try the converter with the included sample PDF:
+To try the converter with the included sample PDF (my Master Thesis):
 
 ```bash
 # Make sure Ollama is running in another terminal with: ollama serve
