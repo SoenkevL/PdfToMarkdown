@@ -22,8 +22,8 @@ A powerful tool that converts PDF documents to well-formatted Markdown using the
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/yourusername/pdf-to-markdown.git
-   cd pdf-to-markdown
+   git clone [https://github.com/SoenkevL/PdftoMarkdown.git](https://github.com/SoenkevL/PdfToMarkdown.git)
+   cd PdfToMarkdown
    ```
 
 2. Create and activate a virtual environment:
