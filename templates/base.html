@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}PDF to Markdown Converter{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {{ dropzone.load_css() }}
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>PDF to Markdown Converter</h1>
+            <p class="subtitle">Convert your PDF documents to clean, formatted Markdown with AI assistance</p>
+        </header>
+
+        <div id="alert-container">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer>
+            <p>&copy; {% now year %} PDF to Markdown Converter. Powered by Marker and Ollama.</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {{ dropzone.load_js() }}
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ filename }} - PDF to Markdown Converter</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.2.0/github-markdown.min.css">
+    <style>
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .markdown-container {
+            padding: 30px;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-radius: 5px;
+        }
+        /* Dark mode toggle styles */
+        .dark-mode {
+            background-color: #0d1117;
+            color: #c9d1d9;
+        }
+        .dark-mode .markdown-body {
+            color: #c9d1d9;
+            background-color: #0d1117;
+        }
+        .dark-mode .card {
+            background-color: #161b22;
+            border-color: #30363d;
+        }
+        .dark-mode .card-header {
+            background-color: #21262d;
+            border-color: #30363d;
+        }
+        /* Make images responsive */
+        .markdown-body img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container main-container py-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>{{ filename }}</h1>
+            <div>
+                <button id="darkModeToggle" class="btn btn-sm btn-outline-secondary me-2">Toggle Dark Mode</button>
+                <button id="backButton" class="btn btn-outline-primary">Back</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Markdown Content</h5>
+                <a href="javascript:window.print()" class="btn btn-sm btn-outline-secondary">Print</a>
+            </div>
+            <div class="card-body p-0">
+                <div class="markdown-container">
+                    <div class="markdown-body">
+                        {% if filename.endswith('.md') %}
+                            <div id="markdown-content">{{ content | safe }}</div>
+                        {% elif filename.endswith('.png') or filename.endswith('.jpg') or filename.endswith('.jpeg') %}
+                            <div class="text-center">
+                                <img src="{{ url_for('download_file', folder_name=request.view_args.folder_name, filename=filename) }}" class="img-fluid" alt="{{ filename }}">
+                            </div>
+                        {% else %}
+                            <p>Unable to preview this file type.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle back button
+            document.getElementById('backButton').addEventListener('click', function() {
+                window.history.back();
+            });
+
+            // Render markdown
+            if (document.getElementById('markdown-content')) {
+                const content = document.getElementById('markdown-content').innerHTML;
+                document.getElementById('markdown-content').innerHTML = marked.parse(content);
+            }
+
+            // Dark mode toggle
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const body = document.body;
+
+            // Check if dark mode is saved in localStorage
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                body.classList.add('dark-mode');
+            }
+
+            darkModeToggle.addEventListener('click', function() {
+                body.classList.toggle('dark-mode');
+
+                // Save preference to localStorage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('darkMode', 'enabled');
+                } else {
+                    localStorage.setItem('darkMode', 'disabled');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

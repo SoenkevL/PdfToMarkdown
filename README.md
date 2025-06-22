@@ -1,5 +1,160 @@
 # PDF to Markdown Converter
+# PDF to Markdown Converter with Web Interface
+# PDF to Markdown Converter
 
+A Python application that converts PDF documents to Markdown format using the Marker library and Ollama's LLM capabilities.
+
+## Features
+
+- Convert PDF documents to clean, formatted Markdown
+- Web interface for easy upload and configuration
+- Command-line interface for batch processing
+- LLM-powered content extraction and formatting
+- Support for custom configuration
+
+## Installation
+
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/yourusername/pdf-to-markdown-converter.git
+   cd pdf-to-markdown-converter
+   ```
+
+2. Create and activate a virtual environment:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. Ensure you have Ollama running locally or specify a remote Ollama server in the configuration.
+
+## Usage
+
+### Web Interface
+
+1. Start the web server:
+   ```bash
+   python app.py
+   ```
+
+2. Open your browser and navigate to http://localhost:5000
+
+3. Upload a PDF file, configure options if needed, and click "Convert PDF to Markdown"
+
+4. Download the converted Markdown file or preview it in the browser
+
+### Command Line Interface
+
+```bash
+# Basic usage
+python PdfToMarkdownConverter.py --pdf path/to/document.pdf
+
+# Specify output directory
+python PdfToMarkdownConverter.py --pdf path/to/document.pdf --output path/to/output_dir
+
+# Use custom configuration
+python PdfToMarkdownConverter.py --pdf path/to/document.pdf --config path/to/config.json
+
+# Create a default configuration file
+python PdfToMarkdownConverter.py --create-config config.json
+```
+
+## Configuration
+
+The converter can be configured using a JSON file with the following options:
+
+```json
+{
+  "output_format": "markdown",
+  "use_llm": true,
+  "llm_service": "marker.services.ollama.OllamaService",
+  "ollama_base_url": "http://localhost:11434",
+  "ollama_model": "qwen2.5:14b"
+}
+```
+
+## Requirements
+
+- Python 3.7+
+- Flask 2.2+
+- Marker library
+- Ollama (running locally or remotely)
+- See requirements.txt for complete list
+
+## License
+
+[MIT License](LICENSE)
+This application provides a simple web interface for converting PDF documents to Markdown format using the Marker library. It leverages Ollama's LLM capabilities for enhanced conversion quality.
+
+## Features
+
+- Easy-to-use web interface for uploading and converting PDF files
+- Configuration management through the web UI
+- Real-time conversion status updates
+- View and download converted files
+- Dark mode support for markdown preview
+- Drag-and-drop file upload
+
+## Prerequisites
+
+- Python 3.13+ 
+- Marker library
+- Flask
+- Ollama (running locally or on a specified endpoint)
+
+## Installation
+
+1. Clone this repository
+2. Install the requirements:
+
+```bash
+pip install -r requirements.txt
+```
+
+3. Make sure Ollama is running and accessible (default: http://localhost:11434)
+
+## Usage
+
+1. Start the web server:
+
+```bash
+python app.py
+```
+
+2. Open your browser and navigate to http://localhost:5000
+3. Upload a PDF file using the web interface
+4. Configure conversion settings if needed
+5. View and download the converted markdown files
+
+## Configuration
+
+You can customize the conversion process by modifying the configuration through the web interface or by directly editing the `config.json` file.
+
+Available configuration options:
+
+- `output_format`: Format of the output (currently only markdown is supported)
+- `use_llm`: Whether to use LLM for enhanced conversion
+- `llm_service`: Service to use for LLM (default: Ollama)
+- `ollama_base_url`: URL of the Ollama service
+- `ollama_model`: Ollama model to use for conversion
+
+## Project Structure
+
+- `app.py`: Main Flask application
+- `PdfToMarkdownConverter.py`: Core conversion functionality
+- `templates/`: HTML templates for the web interface
+- `uploads/`: Temporary storage for uploaded PDF files
+- `output/`: Directory for converted markdown files
+- `config.json`: Configuration file
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
 A powerful tool that converts PDF documents to well-formatted Markdown using the Marker library and Ollama's LLM capabilities. This tool extracts structured content from PDFs, including text, tables, and images, and generates high-quality markdown documents.
 
 ## Features

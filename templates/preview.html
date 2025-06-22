@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Preview: {{ filename }} - PDF to Markdown Converter{% endblock %}
+
+{% block extra_css %}
+<style>
+    .markdown-preview {
+        background-color: white;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: var(--box-shadow);
+        line-height: 1.6;
+    }
+
+    .markdown-preview img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .markdown-preview h1, 
+    .markdown-preview h2, 
+    .markdown-preview h3, 
+    .markdown-preview h4, 
+    .markdown-preview h5, 
+    .markdown-preview h6 {
+        color: var(--primary-color);
+        margin-top: 1.5em;
+        margin-bottom: 0.5em;
+    }
+
+    .markdown-preview pre {
+        background-color: #f5f5f5;
+        padding: 1rem;
+        border-radius: 4px;
+        overflow-x: auto;
+    }
+
+    .markdown-preview code {
+        background-color: #f5f5f5;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+    }
+
+    .markdown-preview blockquote {
+        border-left: 4px solid var(--primary-color);
+        padding-left: 1rem;
+        margin-left: 0;
+        color: #666;
+    }
+
+    .actions-bar {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="actions-bar">
+    <a href="{{ url_for('index') }}" class="btn">← Back to Converter</a>
+    <a href="{{ url_for('download_file', conversion_id=conversion_id, file_type='md') }}" class="btn">Download Markdown</a>
+</div>
+
+<div class="markdown-preview">
+    {{ markdown_content|safe }}
+</div>
+{% endblock %}
